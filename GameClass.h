@@ -56,7 +56,7 @@ BaseCharacter::BaseCharacter()
 
 	//инициализация статов
 	Ref = rollRange(6, 5);
-	Body = rollRange(10, 1);
+	Body = rollRange(4, 8);
 
 	//инициализация брони
 	SPHead = rollRange(0, 14);
@@ -101,7 +101,7 @@ inline int BaseCharacter::attack()
 	int totalDamage = 0;
 	int rollHit = rollDice(10) + Ref + weapon.hitBonus;//ролим попадание, всегда принимаем за факт что у всех владение оружием 5
 
-	if (rollHit < 15) return 0; // если не попал то урон 0, представим, что дистанция всегда одинаковая, так как карты симуляции нет 
+	if (rollHit < rollRange(10,11)) return 0; // если не попал то урон 0, представим, что дистанция всегда одинаковая, так как карты симуляции нет 
 
 	for (int i = 0; i < weapon.qtyOfDamage; i++)
 	{
