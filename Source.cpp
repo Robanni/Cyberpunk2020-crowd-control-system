@@ -66,16 +66,32 @@ int main() {
 		round++;
 	}
 
+	int theyWillDie = 0;
+
+	if(allieTeam.size() != 0) 
+	{
+		for (size_t i = 0; i < allieTeam.size(); i++)
+		{
+			if (allieTeam[i]->howMuchDamage() > 16) theyWillDie++;
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i < enemyTeam.size(); i++)
+		{
+			if (enemyTeam[i]->howMuchDamage() > 16) theyWillDie++;
+		}
+	}
+
 	std::cout << "Allie number:" << allieTeam.size() << std::endl;
 	std::cout << "Enemy number:" << enemyTeam.size() << std::endl;
+	std::cout << "they survived but will die:" << theyWillDie << std::endl;
 	std::cout << "Number of rounds:" << round<<std::endl;
-
-	system("pause");
 
 	char request;
 	std::cout << "Next fight?(y|n)" << std::endl;
 	std::cin >> request;
-	if (request == 'y')goto begining;//Старье и спагетти код, но мне все равно. Перенос в начало 
+	if (request == 'y') goto begining;//Старье и спагетти код, но мне все равно. Перенос в начало 
 
 	return 0;
 }
