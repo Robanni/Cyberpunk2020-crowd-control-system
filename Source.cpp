@@ -5,6 +5,9 @@
 
 int main() {
 	std::srand(time(NULL));
+
+	begining://Старье и спагетти код но мне все равно. Точка переноса в начало
+
 	int round=0;
 	unsigned numberOfAllies, numberOfEnemies ;
 
@@ -68,6 +71,11 @@ int main() {
 	std::cout << "Number of rounds:" << round<<std::endl;
 
 	system("pause");
+
+	char request;
+	std::cout << "Next fight?(y|n)" << std::endl;
+	std::cin >> request;
+	if (request == 'y')goto begining;//Старье и спагетти код, но мне все равно. Перенос в начало 
 
 	return 0;
 }
