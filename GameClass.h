@@ -15,6 +15,7 @@ public:
 	~BaseCharacter();
 
 	int attack();// Производим атаку и умножаем ее на numberOfDamage
+	int howMuchDamage();//Возвращает значения полученного урона
 	void takeDamage(int damage);//Получаем урон
 	void deathRoll();
 	bool isAlive;
@@ -101,22 +102,29 @@ inline int BaseCharacter::attack()
 	int totalDamage = 0;
 	int rollHit = rollDice(10) + Ref + weapon.hitBonus;//ролим попадание, всегда принимаем за факт что у всех владение оружием 5
 
-	if (rollHit < rollRange(10,11)) return 0; // если не попал то урон 0, представим, что дистанция всегда одинаковая, так как карты симуляции нет 
+	if (rollHit < rollRange(10,11)) return 0; // если не попал то урон 0, дистанция рандомная от 10 до 20 
 
 	for (int i = 0; i < weapon.qtyOfDamage; i++)
 	{
 		totalDamage += rollDice(6);//Ролим несколько d6 
 	}
 	
+	if (rollDice(100) == 100) totalDamage += rollDice(6) * 7; // Процентный шанс того что чел еще бросит гранату
+
 	totalDamage += weapon.damageBonus;
 
 	return totalDamage;/*умножаем d6 на колличество этих d6, грубовато
 								так как мы игнорируем что на кубах могут падать разные значения, стоит придумать другой*/
 }
 
+inline int BaseCharacter::howMuchDamage()
+{
+	return takenDamage;
+}
+
 inline void BaseCharacter::takeDamage(int damage)
 {
-	int totalDamage =0;
+	int totalDamage = 0;
 	int hadShotIn = rollDice(10);
 	
 	switch (hadShotIn)
