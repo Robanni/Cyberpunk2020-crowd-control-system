@@ -2,7 +2,8 @@
 
 #include "Includes.h"
 
-int rollDice(int numberOfFaces)//тупо ролим дайс с указанным колличеством граней
+int rollDice(int numberOfFaces)
+//тупо ролим дайс с указанным колличеством граней
 {
 	int value = std::rand() % numberOfFaces + 1;
 
@@ -11,7 +12,8 @@ int rollDice(int numberOfFaces)//тупо ролим дайс с указанным колличеством граней
 	return value;
 }
 
-int rollRange(int min, int range)// ролит число из диапазона до range не включая и прибавляет к нему min
+int rollRange(int min, int range)
+// ролит число из диапазона до range не включая и прибавляет к нему min
 {
 	if (range == 0)return 0;
 	int value = std::rand() % range + min;
@@ -19,7 +21,8 @@ int rollRange(int min, int range)// ролит число из диапазона до range не включая
 	return value;
 }
 
-int armorPenetration(int sp, int damage, int btm) {
+int armorPenetration(int sp, int damage, int btm)
+{
 	int totalDamage = 0;
 	int stoppedDamage = sp - damage;
 
@@ -30,4 +33,17 @@ int armorPenetration(int sp, int damage, int btm) {
 	totalDamage = std::abs(stoppedDamage);
 
 	return totalDamage;
+}
+
+int dealWeaponDamage(int weaponDamageQty, int numberOfAttacks) 
+{
+	int damage = 0;
+	for (size_t i = 0; i != numberOfAttacks; i++)
+	{
+		for (int i = 0; i < weaponDamageQty; i++)
+		{
+			damage += rollDice(6);//Ролим несколько d6 
+		}
+	}
+	return damage;
 }
