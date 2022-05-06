@@ -3,9 +3,10 @@
 
 class BaseWeapon {
 public:
-	int qtyOfDamage;
-	int damageBonus;
-	int hitBonus;
+	int qtyOfDamage;//Колличество кубов
+	int damageBonus;//Бонус урона
+	int hitBonus;//Бонус попадания 
+	int numberOfAttacks;
 };
 
 
@@ -53,7 +54,8 @@ BaseCharacter::BaseCharacter()
 	// инициализация оружия
 	weapon.damageBonus = rollRange(0, 4);
 	weapon.hitBonus = rollRange(0, 4);
-	weapon.qtyOfDamage = rollRange(2, 5);
+	weapon.qtyOfDamage = rollRange(2, 3);
+	weapon.numberOfAttacks = rollRange(1, 3);
 
 	//инициализация статов
 	Ref = rollRange(6, 5);
@@ -104,17 +106,46 @@ inline int BaseCharacter::attack()
 
 	if (rollHit < rollRange(10,11)) return 0; // если не попал то урон 0, дистанция рандомная от 10 до 20 
 
-	for (int i = 0; i < weapon.qtyOfDamage; i++)
+	switch (weapon.numberOfAttacks)
 	{
-		totalDamage += rollDice(6);//Ролим несколько d6 
+	case 1:
+		totalDamage += dealWeaponDamage(weapon.qtyOfDamage, 1);
+		break;
+	case 2:
+		switch ((int)std::floor(rollDice(4) / 2))//округляем до int колличество попаданий
+		{
+		case 1:
+			totalDamage += dealWeaponDamage(weapon.qtyOfDamage, 1);
+			break;
+		case 2:
+			totalDamage += dealWeaponDamage(weapon.qtyOfDamage, 2);
+			break;
+		case 3:
+			totalDamage += dealWeaponDamage(weapon.qtyOfDamage, 3);
+			break;
+		}
+		break;
+	case 3:
+		switch ((int)std::floor(rollDice(6) / 2))//округляем до int колличество попаданий
+		{
+		case 1:
+			totalDamage += dealWeaponDamage(weapon.qtyOfDamage, 1);
+			break;
+		case 2:
+			totalDamage += dealWeaponDamage(weapon.qtyOfDamage, 2);
+			break;
+		case 3:
+			totalDamage += dealWeaponDamage(weapon.qtyOfDamage, 3);
+			break;
+		}
+		break;
 	}
-	
+		
 	if (rollDice(100) == 100) totalDamage += rollDice(6) * 7; // Процентный шанс того что чел еще бросит гранату
 
 	totalDamage += weapon.damageBonus;
 
-	return totalDamage;/*умножаем d6 на колличество этих d6, грубовато
-								так как мы игнорируем что на кубах могут падать разные значения, стоит придумать другой*/
+	return totalDamage;
 }
 
 inline int BaseCharacter::howMuchDamage()
