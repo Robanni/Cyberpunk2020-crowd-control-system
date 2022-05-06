@@ -69,9 +69,31 @@ int main() {
 	
 		round++;
 		if (round == weWantToWatchRounds) {// Пауза на колличество просмотренных раундов
+			int allieHurt = 0;
+			int enemyHurt = 0;
+
+
 			std::cout << "Allie number:" << allieTeam.size() << std::endl;
+			for (size_t i = 0; i < allieTeam.size(); i++)
+			{
+				if (allieTeam[i]->howMuchDamage() > 16) allieHurt++;//Раненые союзники
+			}
+			std::cout << "Allie hurted guys:" << allieHurt << std::endl;
+			std::cout << std::endl;
+
+
 			std::cout << "Enemy number:" << enemyTeam.size() << std::endl;
+			for (size_t i = 0; i < enemyTeam.size(); i++)
+			{
+				if (enemyTeam[i]->howMuchDamage() > 16) enemyHurt++;
+			}
+			std::cout << "Enemy hurted guys:" << enemyHurt << std::endl;
+			std::cout << std::endl;
+
+
 			std::cout << "Number of rounds:" << round << std::endl;
+			std::cout << std::endl;
+
 
 			std::cout << "What round do you want to watch:";
 			std::cin >> weWantToWatchRounds;
