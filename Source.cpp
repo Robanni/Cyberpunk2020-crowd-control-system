@@ -9,12 +9,16 @@ int main() {
 	begining://Старье и спагетти код но мне все равно. Точка переноса в начало
 
 	int round=0;
+	int weWantToWatchRounds;
 	unsigned numberOfAllies, numberOfEnemies ;
 
 	std::cout << "Number of allies:";
 	std::cin >> numberOfAllies;
 	std::cout << std::endl << "Number of Enemies:";
 	std::cin >> numberOfEnemies;
+	std::cout << std::endl;
+	std::cout << "What round do you want to watch:";
+	std::cin >> weWantToWatchRounds;
 	std::cout << std::endl;
 
 	std::vector<BaseCharacter*> allieTeam(numberOfAllies,nullptr);
@@ -64,6 +68,16 @@ int main() {
 		}
 	
 		round++;
+		if (round == weWantToWatchRounds) {// Пауза на колличество просмотренных раундов
+			std::cout << "Allie number:" << allieTeam.size() << std::endl;
+			std::cout << "Enemy number:" << enemyTeam.size() << std::endl;
+			std::cout << "Number of rounds:" << round << std::endl;
+
+			std::cout << "What round do you want to watch:";
+			std::cin >> weWantToWatchRounds;
+			std::cout << std::endl;
+		}
+
 	}
 
 	int theyWillDie = 0;
